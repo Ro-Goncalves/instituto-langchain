@@ -32,4 +32,4 @@ Pensei em criar um sistema que pegue um texto e o transforme em uma query SQL. Q
 >  
 > Em palavras mais bonitas: criar metadados para as tabelas mais utilizadas nas consultas, estruturando-os de forma que os modelos de linguagem consigam pesquisá-los com facilidade; além disso, criar um banco de consultas já criadas e validadas – também com metadados. Esse conjunto deve ser capaz de orientar o LLM na criação de uma nova consulta.  
 
-Quem sabe um dia eu não ataque esse problema? 🤔 Por hora, fiquem com meu estudo - [Busca SQL](https://github.com/Ro-Goncalves/instituto-langchain/blob/master/.notebooks/sql_agent.ipynb).
+Quem sabe um dia eu não ataque esse problema? 🤔 Por hora, fiquem com meu estudo - [Busca SQL](https://github.com/Ro-Goncalves/instituto-langchain/blob/master/.notebooks/busca-sql.ipynb).
