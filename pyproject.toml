@@ -7,14 +7,16 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0.0"
-chainlit = "=2.4.302"
-pydantic-settings = "=2.8.1"
+chainlit = "2.4.302"
+pydantic-settings = "2.8.1"
+langgraph = "0.3.21"
+langchain-groq = "0.3.1"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.5"
 
 [tool.poetry.scripts]
-chainlit-app = "chainlit run instituto_langchain.busca-sql.interfaces.chainlit.app:cl -w"
+chainlit-app = "chainlit run instituto_langchain/busca-sql/interfaces/chainlit/app.py:cl -w"
 
 [build-system]
 requires = ["poetry-core"]
