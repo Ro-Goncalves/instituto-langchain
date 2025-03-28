@@ -1,11 +1,20 @@
 from typing import Dict, Any
 
-from state import BuscaSqlState
+import time
+from instituto_langchain.busca_sql.graph.state import InputState
 from instituto_langchain.busca_sql.configuracoes import configuracoes
+from instituto_langchain.busca_sql.graph.utils.gerenciador_banco import GerenciadorBanco
+from instituto_langchain.busca_sql.graph.utils.gerenciador_llm import GerenciadorLLM
+from instituto_langchain.busca_sql.core.prompts import ANALISAR_PERGUNTA_SYSTEM_PROMPT, ANALISAR_PERGUNTA_HUMAN_PROMPT
+
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import JsonOutputParser
 
 LOGGER = configuracoes.LOGGER
+GERENCIADOR_BANCO = GerenciadorBanco()
+GERENCIADOR_LLM = GerenciadorLLM()
 
-async def node_analisar_pergunta(state: BuscaSqlState) -> Dict[str, Any]:    
+async def node_analisar_pergunta(state: InputState) -> Dict[str, Any]:    
     """
     Analisa a pergunta do usuário e identifica as tabelas e colunas relevantes.
     
@@ -16,38 +25,21 @@ async def node_analisar_pergunta(state: BuscaSqlState) -> Dict[str, Any]:
         Dict[str, Any]: Dicionário contendo a análise da pergunta
     """    
 
-    LOGGER.info(f"Iniciando análise da pergunta: '{pergunta}'")
+    LOGGER.info(f"Iniciando análise da pergunta: '{state['pergunta']}'")
     
     try:        
         start_schema_time = time.time()
-        esquema = db_manager.get_schema()
+        esquema = GERENCIADOR_BANCO.get_schema()
         
         LOGGER.debug(f"Preparando prompt para o LLM")
         prompt = ChatPromptTemplate.from_messages([
-            ("system", '''Você é um analista de dados que pode ajudar a resumir tabelas SQL e interpretar perguntas de usuários sobre um banco de dados.  
-Dada a pergunta e o esquema do banco de dados, identifique as tabelas e colunas relevantes.  
-Se a pergunta não for relevante para o banco de dados ou se não houver informações suficientes para respondê-la, defina "is_relevante" como false.
-Sua resposta deve estar no seguinte formato JSON:
-{{
-    "is_relevante": boolean,
-    "tabelas_relevantes": [
-        {{
-            "nome_tabela": string,
-            "colunas": [string],
-            "colunas_substantivo": [string]
-        }}
-    ]
-}}
-O campo "colunas_substantivo" deve conter apenas as colunas que são relevantes para a pergunta e que contêm substantivos ou nomes.  
-Por exemplo, a coluna "Nome do Artista" contém substantivos relevantes para a pergunta "Quais são os artistas mais vendidos?",  
-mas a coluna "ID do Artista" não é relevante, pois não contém um substantivo. Não inclua colunas que contenham números.
-'''),
-            ("human", "===Esquema do banco de dados:\n{esquema}\n\n===Pergunta do usuário:\n{pergunta}\n\nIdentifique as tabelas e colunas relevantes:")
+            ("system", ANALISAR_PERGUNTA_SYSTEM_PROMPT),
+            ("human", ANALISAR_PERGUNTA_HUMAN_PROMPT)
         ])        
        
         analisador_json = JsonOutputParser()
          
-        resposta = llm_manager.invoke(prompt, esquema=esquema, pergunta=pergunta)          
+        resposta = GERENCIADOR_LLM.invoke(prompt, esquema=esquema, pergunta=state['pergunta'])          
 
         LOGGER.debug(f"Analisando resposta JSON")      
         try:

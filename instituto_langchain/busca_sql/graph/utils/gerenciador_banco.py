@@ -1,59 +1,89 @@
+import logging
+import sqlite3
+import os
 
+from datetime import datetime
+from typing import List, Dict, Any
 
-# class LLMManager:
-#     def __init__(self):
-#         """Inicializa o gerenciador de LLM com o modelo Groq."""
-#         LOGGER.info("Inicializando LLMManager com o modelo deepseek-r1-distill-llama-70b")
-        
-#         api_key = os.getenv("GROQ_API_KEY")
-#         if not api_key:
-#             LOGGER.error("GROQ_API_KEY não encontrada nas variáveis de ambiente\n")
-#             raise ValueError("GROQ_API_KEY não configurada. Configure a variável de ambiente GROQ_API_KEY.")
-        
-#         try:
-#             self.llm = ChatGroq(
-#                 model="deepseek-r1-distill-llama-70b",
-#                 api_key=api_key,
-#                 temperature=0.1,
-#                 max_retries=2,
-#             )
-#             LOGGER.info("LLM inicializado com sucesso (modelo: deepseek-r1-distill-llama-70b, temperatura: 0.1)\n")
-#         except Exception as e:
-#             LOGGER.error(f"Erro ao inicializar o LLM: {str(e)}\n")
-#             raise Exception(f"Falha na inicialização do LLM: {str(e)}")
+from instituto_langchain.busca_sql.configuracoes import configuracoes
 
-#     def invoke(self, prompt: ChatPromptTemplate, **kwargs) -> str:
-#         """
-#         Invoca o LLM com o prompt fornecido e parâmetros adicionais.
+class GerenciadorBanco:
+    VARIAVEIS_OBRIGATORIA = ['GROQ_API_KEY']
+    
+    def __init__(self):
+        """Inicializa o gerenciador de banco de dados com SQLite."""
+        self.logger = logging.getLogger(__name__)
+        self.db_path = configuracoes.CAMINHO_BANCO_AGENTE_SQL
+
+        self.logger.info(f"Inicializando DatabaseManager com banco de dados em {self.db_path}")
+
+        self._validar_variaveis()
+
+        try:
+            self.connection = sqlite3.connect(self.db_path)
+            self.connection.row_factory = sqlite3.Row  # Permite acessar os resultados por nome de coluna
+            self.logger.info("Conexão com o banco de dados estabelecida com sucesso\n")
+        except sqlite3.Error as e:
+            self.logger.error(f"Erro ao conectar ao banco de dados: {str(e)}\n")
+            raise Exception(f"Falha na conexão com o banco de dados: {str(e)}")
+
+    def _validar_variaveis(self) -> None:
+        variaveis_faltantes = [var for var in self.VARIAVEIS_OBRIGATORIA if not os.getenv(var)]
+        if variaveis_faltantes:
+            raise ValueError(f"Variáveis obrigatórias ausentes: {', '.join(variaveis_faltantes)}")
         
-#         Args:
-#             prompt: O template de prompt do chat
-#             **kwargs: Variáveis para formatação do prompt
+    def get_schema(self) -> str:
+        """Recupera o esquema do banco de dados SQLite."""
+        self.logger.info("Obtendo esquema do banco de dados")
+        try:
+            cursor = self.connection.cursor()
+            cursor.execute("SELECT name, sql FROM sqlite_master WHERE type='table';")
+            schema_info = cursor.fetchall()
             
-#         Returns:
-#             str: A resposta do modelo
-#         """       
+            tables_count = len(schema_info)
+            self.logger.debug(f"Encontradas {tables_count} tabelas no banco de dados")
+            
+            schema = "\n".join(f"Table: {row['name']}\n{row['sql']}" for row in schema_info if row['sql'])
+            self.logger.debug(f"Esquema obtido: {schema}\n")
+            return schema
+        except sqlite3.DatabaseError as e:
+            error_msg = f"Erro ao obter o esquema do banco de dados: {str(e)}\n"
+            self.logger.error(error_msg)
+            raise Exception(error_msg)
+
+    def execute_query(self, query: str) -> List[Dict[str, Any]]:
+        """Executa uma query SQL no banco SQLite e retorna os resultados."""
+       
+        self.logger.info(f"Executando query: {query}")
         
-#         try:           
-#             start_format_time = time.time()
-#             messages = prompt.format_messages(**kwargs)
-#             format_time = time.time() - start_format_time
+        try:
+            is_select = query.strip().lower().startswith("select")
             
-#             LOGGER.info("Enviando requisição ao modelo...")
-#             start_invoke_time = time.time()
-#             response = self.llm.invoke(messages)
-#             invoke_time = time.time() - start_invoke_time
-           
-#             response_content = response.content
-#             LOGGER.debug(f"Resposta recebida em {invoke_time:.3f}s ({len(response_content)} caracteres)")
-#             LOGGER.info(f"Resposta do LLM: {response_content}")
+            if not is_select:
+                operacao = query.strip().split("/")[0]
+                self.logger.warning(f"Tentativa de execução de operação SQL '{operacao}' não permitida")
+                raise Exception(f"Operação SQL '{operacao}' não permitida")
             
-#             # Log de métricas
-#             total_time = format_time + invoke_time
-#             LOGGER.debug(f"Invocação completa. Tempo total: {total_time:.3f}s")
+            cursor = self.connection.cursor()
+            start_time = datetime.now()
+            cursor.execute(query)
             
-#             return re.sub(r'<think>.*?</think>\s*', '', response_content, flags=re.DOTALL)
+            results = [dict(row) for row in cursor.fetchall()]           
             
-#         except Exception as e:
-#             LOGGER.error(f"Erro ao invocar o LLM: {str(e)}")
-#             raise Exception(f"Falha na invocação do LLM: {str(e)}")
+            execution_time = (datetime.now() - start_time).total_seconds()
+            self.logger.info(f"Tempo de execução: {execution_time:.3f} segundos\n")
+
+            return results
+        except sqlite3.DatabaseError as e:
+            error_msg = f"Erro ao executar a consulta: {str(e)}\n"
+            self.logger.error(error_msg)            
+            raise Exception(error_msg)
+
+    def close(self):
+        """Fecha a conexão com o banco de dados."""
+        self.logger.info("Fechando conexão com o banco de dados")
+        try:
+            self.connection.close()
+            self.logger.info("Conexão com o banco de dados fechada com sucesso\n")
+        except sqlite3.Error as e:
+            self.logger.error(f"Erro ao fechar a conexão com o banco de dados: {str(e)}\n")

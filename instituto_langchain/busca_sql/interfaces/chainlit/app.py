@@ -1,9 +1,6 @@
 import chainlit as cl
-from langchain_core.prompts import ChatPromptTemplate
 
-from instituto_langchain.busca_sql.graph.utils.gerenciador_llm import GerenciadorLLM
-
-llm = GerenciadorLLM()
+from instituto_langchain.busca_sql.graph.graph import criar_grafo_busca_sql
 
 @cl.on_chat_start
 async def on_chat_start():
@@ -11,10 +8,10 @@ async def on_chat_start():
     
 @cl.on_message
 async def on_message(message: cl.Message):
-    template = ChatPromptTemplate([
-        ("system", "Seu nome é Brian, você está sempre feliz e alegre, sempre respondendo em PT-BR."),
-        ("human", message.content),   
-    ])
-    texto_msg = llm.invoke(template)  
-    msg = cl.Message(content=texto_msg)
+
+    async with cl.Step(type="run"):
+        grafo = criar_grafo_busca_sql().compile()
+        texto_msg = await grafo.ainvoke({"pergunta": message.content})
+
+    msg = cl.Message(content=texto_msg["pergunta_analisada"])
     await msg.send()
