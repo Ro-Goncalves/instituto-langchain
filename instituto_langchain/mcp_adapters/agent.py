@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Exemplo de pergunta
+# * Quanto é (5 + 2) * 3?
 query = input("Digite uma pergunta: ")
 
 model = ChatGroq(
@@ -23,14 +25,19 @@ async def run_agent():
                 "command": "python",
                 "args": ["instituto_langchain/mcp_adapters/servers/calculadora_server.py"],
                 "transport": "stdio",
-            }
+            },
+            # "youtube_transcript": {
+            #     "command": "python",
+            #     "args": ["instituto_langchain/mcp_adapters/servers/yt_transcript_server.py"],
+            #     "transport": "stdio",
+            # },
         }
     ) as client:
         tools = client.get_tools()
         agent = create_react_agent(model, tools)
 
         system_message = SystemMessage(content=(
-            "You have access to multiple tools that can help answer queries."
+            "You have access to multiple tools, and transcript tools, that can help answer queries."
             "Use them dynamically and efficiently based on the user's request. "
         ))
 
