@@ -1,4 +1,4 @@
-import os, asyncio
+import os, asyncio, sys
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langgraph.prebuilt import create_react_agent
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -6,6 +6,10 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 
 load_dotenv()
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+server_path = os.path.join(script_dir, "servers", "calculadora_server.py")
+
 
 # Exemplo de pergunta
 # * Quanto é (5 + 2) * 3?
@@ -22,8 +26,8 @@ async def run_agent():
     async with MultiServerMCPClient(
         {
             "calculadora": {
-                "command": "python",
-                "args": ["instituto_langchain/mcp_adapters/servers/calculadora_server.py"],
+                "command": sys.executable,
+                "args": [server_path],
                 "transport": "stdio",
             },
             # "youtube_transcript": {
