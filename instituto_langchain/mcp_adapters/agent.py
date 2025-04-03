@@ -19,9 +19,9 @@ model = ChatGroq(
 async def run_agent():
     async with MultiServerMCPClient(
         {
-            "math": {
+            "calculadora": {
                 "command": "python",
-                "args": ["instituto_langchain/mcp_adapters/servers/math.py"],
+                "args": ["instituto_langchain/mcp_adapters/servers/calculadora_server.py"],
                 "transport": "stdio",
             }
         }
@@ -35,9 +35,12 @@ async def run_agent():
         ))
 
         agent_response = await agent.ainvoke({"messages": [system_message, HumanMessage(content=query)]})
+        
+        for m in agent_response["messages"]:
+            m.pretty_print()
 
-        return agent_response['messages'][1].content
+        return agent_response['messages'][-1].content
     
 if __name__ == "__main__":
     response = asyncio.run(run_agent())
-    print(response)
+    print("\nFinal Response:", response)
