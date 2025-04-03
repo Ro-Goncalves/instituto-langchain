@@ -1,6 +1,6 @@
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("Math")
+mcp = FastMCP("Calculadora")
 
 @mcp.tool(
     name="add",
