@@ -1,5 +1,4 @@
 from mcp.server.fastmcp import FastMCP
-import sys, os
 
 mcp = FastMCP("Calculadora")
 

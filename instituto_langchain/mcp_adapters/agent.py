@@ -30,22 +30,29 @@ async def run_agent():
                 "args": [server_path],
                 "transport": "stdio",
             },
-            # "youtube_transcript": {
-            #     "command": "python",
-            #     "args": ["instituto_langchain/mcp_adapters/servers/yt_transcript_server.py"],
-            #     "transport": "stdio",
-            # },
+            "youtube_transcript": {
+                "command": sys.executable,
+                "args": ["instituto_langchain/mcp_adapters/servers/yt_transcript_server.py"],
+                "transport": "stdio",
+            },
+            "file_system": {
+                "command": sys.executable,
+                "args": ["instituto_langchain/mcp_adapters/servers/file_system_server.py"],
+                "transport": "stdio",
+            },
         }
     ) as client:
         tools = client.get_tools()
         agent = create_react_agent(model, tools)
 
         system_message = SystemMessage(content=(
-            "You have access to multiple tools, and transcript tools, that can help answer queries."
+            "You have access to multiple tools, transcript tools and file system tools, that can help answer queries."
             "Use them dynamically and efficiently based on the user's request. "
         ))
 
-        agent_response = await agent.ainvoke({"messages": [system_message, HumanMessage(content=query)]})
+        agent_response = await agent.ainvoke({
+            "messages": [system_message, HumanMessage(content=query)],          
+        })
         
         for m in agent_response["messages"]:
             m.pretty_print()
