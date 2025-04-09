@@ -1,6 +1,6 @@
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("Calculadora")
+mcp = FastMCP(name="Calculadora", settings={"debug": True, "log_level": "DEBUG"})
 
 @mcp.tool(
     name="add",
