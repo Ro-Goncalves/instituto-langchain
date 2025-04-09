@@ -322,5 +322,7 @@ generated_images/
 long_term_memory/
 short_term_memory/
 .langgraph_api/
+.arquivos/
 
 .long_term_memory/
+clickup-mcp-server/
