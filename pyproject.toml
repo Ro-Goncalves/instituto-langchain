@@ -1,68 +1,27 @@
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
-
-[project]
+[tool.poetry]
 name = "instituto-langchain"
 version = "0.1.0"
 description = ""
-authors = [
-    { name = "rodrigo.goncalves", email = "ro.go.calves@gmail.com"},
-]
+authors = ["rodrigo.goncalves <ro.go.calves@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.10"
 
-dependencies = [
-    "chainlit==2.4.302",
-    "pydantic-settings==2.8.1",
-    "langgraph==0.3.21",
-    "langchain-groq==0.3.1",
-    "mcp==1.4.1",
-    "langchain-mcp-adapters==0.0.6",
-    "youtube-transcript-api==1.0.3",
-]
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+chainlit = "2.4.302"
+pydantic-settings = "2.8.1"
+langgraph = "0.3.25"
+langchain-groq = "0.3.2"
+mcp = "1.6.0"
+langchain-mcp-adapters = "0.0.7"
+youtube-transcript-api = "1.0.3"
+crewai = "0.108.0"
 
-[dependency-groups]
-test = [
-    "pytest>=8.0.0",
-    "ruff>=0.9.4",
-    "mypy>=1.8.0",
-    "pytest-socket>=0.7.0",
-    "pytest-asyncio>=0.25.0",
-    "types-setuptools>=69.0.0",
-]
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
 
-dev = [
-    "ipykernel==6.29.5",
-]
+[tool.poetry.scripts]
+chainlit-app = "chainlit run instituto_langchain/busca-sql/interfaces/chainlit/app.py:cl -w"
 
-[tool.pytest.ini_options]
-minversion = "8.0"
-addopts = "-ra -q -v"
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_functions = ["test_*"]
-
-[tool.ruff]
-line-length = 100
-target-version = "py310"
-
-[tool.ruff.lint]
-select = [
-    "E", # pycodestyle errors
-    "W", # pycodestyle warnings
-    "F", # pyflakes
-    "I", # isort
-    "B", # flake8-bugbear
-]
-ignore = [
-    "E501", # line-length
-]
-
-
-[tool.mypy]
-python_version = "3.11"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
-check_untyped_defs = true
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
