@@ -1,6 +1,6 @@
 from typing import Dict, Any, TypedDict, List, Annotated
 from typing_extensions import TypedDict
-from langgraph.graph import StateGraph, END
+from langgraph.graph import StateGraph, END, START
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate
 from instituto_langchain.automatize_me.agents.prompts.code_review_prompts import (
@@ -38,6 +38,7 @@ class RevisorCodigoGraph:
         graph.add_node("report_generator", self.report_generator_agent)
         
         # Definir fluxo
+        graph.add_edge(START, "code_reader")
         graph.add_edge("code_reader", "quality_reviewer")
         graph.add_edge("quality_reviewer", "design_reviewer")
         graph.add_edge("design_reviewer", "report_generator")
@@ -48,7 +49,7 @@ class RevisorCodigoGraph:
     
     async def code_reader_agent(self, state: RevisorCodigoState) -> RevisorCodigoState:
         """Agente que lê o código e identifica sua estrutura"""
-        llm = self.gerenciador_modelo.obter_llm_deepseek()
+        llm = self.gerenciador_modelo.obter_llm_gemini()
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", CODE_READER_SYSTEM_PROMPT),
@@ -62,7 +63,7 @@ class RevisorCodigoGraph:
     
     async def quality_reviewer_agent(self, state: RevisorCodigoState) -> RevisorCodigoState:
         """Agente que avalia a qualidade do código"""
-        llm = self.gerenciador_modelo.obter_llm_deepseek()
+        llm = self.gerenciador_modelo.obter_llm_gemini()
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", QUALITY_REVIEW_SYSTEM_PROMPT),
@@ -79,7 +80,7 @@ class RevisorCodigoGraph:
     
     async def design_reviewer_agent(self, state: RevisorCodigoState) -> RevisorCodigoState:
         """Agente que avalia o design da implementação"""
-        llm = self.gerenciador_modelo.obter_llm_deepseek()
+        llm = self.gerenciador_modelo.obter_llm_gemini()
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", DESIGN_REVIEW_SYSTEM_PROMPT),
@@ -96,7 +97,7 @@ class RevisorCodigoGraph:
     
     async def report_generator_agent(self, state: RevisorCodigoState) -> RevisorCodigoState:
         """Agente que gera o relatório final"""
-        llm = self.gerenciador_modelo.obter_llm_deepseek()
+        llm = self.gerenciador_modelo.obter_llm_gemini()
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", REPORT_GENERATOR_SYSTEM_PROMPT),
@@ -120,4 +121,4 @@ class RevisorCodigoGraph:
         final_state = await self.graph.ainvoke(initial_state)
         
         # Retornar o relatório final
-        return final_state["final_report"]
+        return final_state
