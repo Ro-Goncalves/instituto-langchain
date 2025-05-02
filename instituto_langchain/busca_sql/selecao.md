@@ -25,7 +25,7 @@ Analista RH
 **Roteamento:**
 
 ***Aprovação - Entrevista Agendada***
-Encaminha para a atividade `Aguardar Entrevista Inicial`
+Encaminha para a atividade `Realizar Entrevista Inicial`
 
 ***Reprovação - Processo Finalizado***
 Encaminha para a atividade `Entrevista Inicial Rejeitada`
@@ -34,6 +34,8 @@ Encaminha para a atividade `Entrevista Inicial Rejeitada`
 
 * **Sistema de Workflow:** Recebe dados do processo de Recrutamento.
 * **ATS (Applicant Tracking System):** Para buscar/atualizar o status do candidato.
+* **Ferramenta de Agenda:** (Ex: Google Calendar, Outlook Calendar) para verificar disponibilidade e enviar convites.
+* **Plataforma de Videoconferência:** (Ex: Google Meet, Zoom, Teams) para gerar links.
 
 **Pontos de Atenção:**
 
@@ -42,52 +44,7 @@ Encaminha para a atividade `Entrevista Inicial Rejeitada`
 
 ---
 
-
-
-
-
-### Aguardar Entrevista Inicial (RH)
-
-**Usuário(s) responsável:**
-
-Analista de RH
-
-**Descrição do Procedimento:**
-
-* O Recrutador recebe a lista de candidatos aprovados na triagem.
-* O Recrutador entra em contato com os candidatos (e-mail, telefone, plataforma) para verificar interesse e disponibilidade.
-* O Recrutador agenda a entrevista (presencial, telefone ou vídeo-conferência), conciliando agenda com o entrevistador do RH (que pode ser o próprio Recrutador).
-* O Recrutador envia confirmação/convite da entrevista para o candidato e entrevistador(es).
-* O Recrutador atualiza o status do candidato no ATS.
-
-**Roteamento:**
-
-* Agendamento Confirmado:
-  * Encaminha para a atividade `Realizar Entrevista Inicial (RH)`.
-* Candidato Indisponível/Desistiu:
-  * Encaminha para a atividade `Comunicar Rejeição` ou atualiza status como desistente.
-
-**Regra de Formulário:**
-
-Data, hora e formato da entrevista são obrigatórios.
-
-**Integrações:**
-
-* ATS (para buscar contatos e atualizar status).
-* Ferramenta de Agenda (Ex: Google Calendar, Outlook Calendar) para verificar disponibilidade e enviar convites.
-* Plataforma de Videoconferência (Ex: Google Meet, Zoom, Teams) para gerar links.
-
-**Casos de Uso fora do Escopo:**
-
-Agendamento de entrevistas coletivas.
-
-**Pontos de Atenção:**
-
-Ser claro na comunicação com o candidato sobre os próximos passos. Confirmar o recebimento do convite.
-
----
-
-### Realizar Entrevista Inicial (RH)
+### Realizar Entrevista Inicial
 
 **Usuário(s) responsável:**
 
@@ -95,6 +52,7 @@ Recrutador (RH), Entrevistador de RH
 
 **Descrição do Procedimento:**
 
+* A atividade deve hibernar até dois dias antes da entrevista.
 * O Entrevistador do RH conduz a entrevista com o candidato (presencial, telefone ou vídeo).
 * O Entrevistador avalia aspectos comportamentais (soft skills), alinhamento cultural, entendimento da vaga, histórico profissional e pretensão salarial.
 * O Entrevistador apresenta a empresa e a vaga ao candidato, esclarece dúvidas.
@@ -103,31 +61,115 @@ Recrutador (RH), Entrevistador de RH
 
 **Roteamento:**
 
-* Aprovar Candidato:
-  * Encaminha para a atividade `Agendar Entrevista Técnica/Gestor`.
-* Reprovar Candidato:
-  * Encaminha para a atividade `Comunicar Rejeição`.
+***Aprovar Candidato:***
+Encaminha para a atividade `Agendar Entrevista Técnica`.
 
-**Regra de Formulário:**
-
-Parecer (feedback estruturado) sobre o candidato é obrigatório.
+***Reprovar Candidato:***
+Encaminha para a atividade `Rejeitado na Entrevista Inicial`.
 
 **Integrações:**
 
 * ATS (para registrar feedback e atualizar status).
 * Plataforma de Videoconferência.
 
-**Casos de Uso fora do Escopo:**
-
-Entrevistas assíncronas (vídeos gravados pelos candidatos).
-
 **Pontos de Atenção:**
 
 Manter um roteiro de entrevista estruturado para garantir comparabilidade. Focar em perguntas situacionais e comportamentais. Registrar o feedback logo após a entrevista.
 
----
+Perfeito! Entendi a sua ideia. Você quer focar esta atividade especificamente no ato de **definir e agendar** as próximas etapas (técnicas/gestor), tratando a confirmação ou impossibilidade de agendamento com o candidato.
 
->O processo continuaria com atividades como: Agendar Entrevista Técnica/Gestor, Realizar Entrevista Técnica/Gestor, Aplicar Testes/Avaliações, Verificar Referências, Aprovar Contratação Final, Gerar Carta Oferta, Aguardar Aceite, Comunicar Rejeição, Iniciar Admissão, etc., seguindo a mesma estrutura
+Vamos refinar a descrição, mantendo a sua ideia central e a estrutura que estamos usando:
+
+### Agendar Entrevistas e Avaliações Técnica
+
+**Usuário(s) responsável:**
+
+Analista RH
+
+**Descrição do Procedimento:**
+
+* O Analista RH recebe a notificação de que o candidato foi aprovado na entrevista inicial e deve prosseguir para as próximas etapas.
+* **Alinhamento:** O Analista RH confirma com o Gestor Solicitante (ou consulta a definição da vaga) quais avaliações e entrevistas específicas são necessárias para esta fase (Ex: teste técnico online, case prático, entrevista técnica, entrevista comportamental/fit com gestor, painel com equipe). Define quem serão os entrevistadores/avaliadores.
+* **Verificação de Disponibilidade Interna:** O Analista RH consulta as agendas dos entrevistadores/avaliadores internos para identificar possíveis horários.
+* **Contato com Candidato:** O Analista RH entra em contato com o candidato para:
+  * Informar sobre as próximas etapas (tipos de entrevista/avaliação).
+  * Propor datas e horários compatíveis com a disponibilidade interna.
+* **Confirmação ou Recusa:**
+  * **Se o candidato confirmar** a disponibilidade para as datas/horários propostos:
+    * O Analista RH formaliza o agendamento enviando os convites (via ferramenta de agenda) para o candidato e entrevistadores/avaliadores, incluindo links de videoconferência (se aplicável) e qualquer instrução necessária.
+    * O Analista RH atualiza o status do candidato no ATS e registra os detalhes do agendamento no formulário do processo.
+    * O processo avança para a próxima etapa (`Realizar Entrevista e Avaliação Técnica`).
+  * **Se o candidato recusar** as opções, não responder após um número razoável de tentativas (definir política interna, ex: 3 tentativas em 48h), ou desistir do processo:
+    * O Analista RH registra o motivo no ATS/formulário.
+    * O processo é desviado para a notificação de rejeição.
+
+**Roteamento:**
+
+***Aprovação - Agendamento Confirmado***
+Encaminha para a atividade `Realizar Entrevista e Avaliação Técnica` (ou um estado de "Aguardando Realização da Entrevista/Avaliação" se preferir marcar essa espera no fluxo).
+
+***Rejeição - Não Agendado / Desistência***
+Encaminha para a atividade `Entrevista Técnica Cancelada` (para formalizar o encerramento da participação do candidato no processo).
+
+**Integrações:**
+
+* **ATS (Applicant Tracking System):** Para buscar dados do candidato, registrar o status do agendamento (confirmado, falhou), e armazenar detalhes das entrevistas/avaliações agendadas.
+* **Ferramenta de Agenda:** (Ex: Google Calendar, Outlook Calendar) para verificar disponibilidade interna e enviar os convites formais para todos os participantes.
+* **Plataforma de Videoconferência:** (Ex: Google Meet, Zoom, Teams) para gerar e incluir os links nos convites, se aplicável.
+* **E-mail/Comunicação:** Para o contato inicial com o candidato para propor horários.
+
+**Pontos de Atenção:**
+
+* **Clareza na Comunicação:** Ser claro com o candidato sobre quais etapas serão realizadas, a duração estimada e com quem ele irá interagir.
+* **Flexibilidade:** Oferecer, se possível, mais de uma opção de horário ao candidato.
+* **Tempo de Resposta:** Definir um prazo máximo para o candidato responder às tentativas de agendamento.
+* **Disponibilidade:** Garantir a confirmação da disponibilidade de *todos* os entrevistadores/avaliadores internos antes de propor ao candidato.
+* **Profissionalismo:** Manter uma comunicação ágil e profissional, mesmo em caso de recusa ou desistência do candidato.
+* **Registro:** Assegurar que todos os agendamentos (e tentativas/falhas) sejam devidamente registrados no ATS ou sistema de controle.
+
+### Realizar Entrevistas e Avaliações Técnica
+
+**Usuário(s) responsável:**
+
+Gestor Solicitante, Avaliadores Técnicos, (Analista RH como suporte/coordenador)
+
+**Descrição do Procedimento:**
+
+* **Ativação:** A tarefa é ativada no sistema para os responsáveis (Gestor, Avaliadores) pouco antes da data/hora agendada para a entrevista/avaliação (Ex: 1-2 dias antes, ou no próprio dia). O sistema pode enviar lembretes.
+* **Condução:** Os entrevistadores/avaliadores designados conduzem as sessões (entrevista técnica, comportamental, apresentação de case, teste prático, etc.) conforme planejado e agendado na etapa anterior.
+* **Registro de Feedback:** **Imediatamente após** cada sessão (ou o mais breve possível), cada entrevistador/avaliador acessa o sistema (ATS ou formulário do workflow) e registra suas percepções de forma estruturada:
+  * Pontos fortes e fracos observados.
+  * Respostas a perguntas chave ou desempenho em tarefas.
+  * Avaliação de competências técnicas e/ou comportamentais.
+  * Recomendações (Ex: pontuação, parecer descritivo).
+  * Anexo de materiais relevantes (Ex: código de teste, anotações, resultado de avaliação online, se não integrado automaticamente).
+* **Consolidação (Opcional/Analista RH):** O Analista RH pode verificar se todos os feedbacks foram submetidos e consolidar as informações, se necessário, para facilitar a decisão.
+* **Decisão da Etapa:** Com base nos feedbacks registrados, toma-se a decisão referente a esta fase: o candidato demonstrou ter o perfil técnico e/ou comportamental esperado?
+  * **Sim (Aprovar):** O candidato é considerado apto e será contratado.
+  * **Não (Rejeitar):** O candidato não atendeu aos requisitos avaliados nesta etapa.
+
+**Roteamento:**
+
+***Aprovação - Recomendado para Contratação***
+Encaminha para a atividade `Proposta de Contratação`.
+
+***Rejeição - Não Recomendado***
+* Encaminha para a atividade `Rejeitado na Entrevista e Avaliação Técnica`.
+
+**Integrações:**
+
+* **ATS (Applicant Tracking System):** Essencial para registrar os feedbacks detalhados, pontuações, pareceres e a decisão desta etapa (Aprovado/Reprovado na fase técnica/gestor).
+* **Plataformas de Avaliação Online:** Para buscar resultados de testes técnicos ou comportamentais, idealmente de forma automática.
+* **Ferramenta de Agendamento/Calendário:** Como referência da data/hora/participantes da avaliação realizada.
+* **Sistema de Workflow:** Para gerenciar a tarefa, coletar os formulários de feedback e executar o roteamento.
+
+**Pontos de Atenção:**
+
+* **Pontualidade e Qualidade do Feedback:** É crucial que os avaliadores registrem seus feedbacks rapidamente após a interação, enquanto as impressões estão frescas, e de forma clara e objetiva.
+* **Padronização:** Usar formulários ou critérios de avaliação padronizados para garantir consistência entre diferentes avaliadores e candidatos.
+* **Experiência do Candidato:** Garantir uma experiência positiva para o candidato durante as entrevistas e avaliações, sendo profissional e respeitoso.
+* **Comunicação Interna:** Assegurar que todos os avaliadores entendam como e onde registrar seus feedbacks.
+* **Hibernação/Ativação:** O controle de tempo para ativação da tarefa ajuda a organizar o trabalho dos avaliadores, mas o registro do feedback deve ocorrer logo após a avaliação, independentemente da ativação prévia.
 
 ---
 
@@ -169,88 +211,6 @@ Manter um tom respeitoso e profissional. Agradecer a participação do candidato
 
 
 
-
-
-
-Okay, entendido! Com base no processo de "Recrutamento" que definimos e no formato que utilizamos, vamos criar agora o processo genérico de **Seleção de Candidato**.
-
-Este processo inicia para cada candidato individualmente, logo após a conclusão da triagem e o acionamento da atividade `Abrir Processos Seleção` no fluxo de Recrutamento.
-
----
-
-
-
-### Agendar/Realizar Entrevista Inicial (RH)
-
-**Usuário(s) responsável:**
-
-Analista RH
-
-**Descrição do Procedimento:**
-
-* O Analista RH entra em contato com o candidato para agendar a primeira entrevista (geralmente um screening).
-* O Analista RH realiza a entrevista, focando em:
-    * Apresentação da empresa e da vaga.
-    * Validação de requisitos chave e experiências do currículo.
-    * Avaliação inicial de fit cultural e soft skills.
-    * Alinhamento de expectativas (salariais, modalidade de trabalho, etc.).
-    * Esclarecimento de dúvidas do candidato.
-* O Analista RH registra suas percepções e o resultado da entrevista no sistema.
-
-**Roteamento:**
-
-***Aprovação - Avançar para Próxima Etapa***
-Encaminha para a atividade `Agendar/Realizar Avaliações Técnicas/Comportamentais`
-
-***Rejeição - Rejeitar Candidato***
-Encaminha para a atividade `Notificar Candidato Rejeitado`
-
-**Integrações:**
-
-* **ATS:** Registro do feedback da entrevista.
-* **Ferramenta de Agendamento/Calendário:** Para marcar a entrevista.
-
-**Pontos de Atenção:**
-
-* Manter uma comunicação clara e profissional com o candidato.
-* Ser pontual e respeitar o tempo agendado.
-* Dar um feedback claro (interno) sobre os motivos de aprovação ou rejeição.
-
----
-
-### Agendar/Realizar Avaliações Técnicas/Comportamentais
-
-**Usuário(s) responsável:**
-
-Analista RH, Gestor Solicitante, Avaliadores Técnicos (se aplicável)
-
-**Descrição do Procedimento:**
-
-* O Analista RH, em conjunto com o Gestor Solicitante, define quais avaliações são necessárias (Ex: teste técnico online, case prático, entrevista técnica, entrevista comportamental/fit com gestor, painel com equipe).
-* O Analista RH (ou o Gestor) agenda e coordena a aplicação das avaliações e/ou entrevistas.
-* As entrevistas/avaliações são conduzidas pelos responsáveis designados.
-* Os resultados e feedbacks de cada avaliação são compilados e registrados no sistema.
-
-**Roteamento:**
-
-***Aprovação - Avançar para Decisão***
-Encaminha para a atividade `Tomar Decisão Final (Contratar/Rejeitar)`
-
-***Rejeição - Rejeitar Candidato***
-Encaminha para a atividade `Notificar Candidato Rejeitado`
-
-**Integrações:**
-
-* **ATS:** Registro dos resultados das avaliações.
-* **Plataformas de Avaliação Online:** (Ex: HackerRank, Mettl, Gupy Clima & Engajamento - se aplicável).
-* **Ferramenta de Agendamento/Calendário.**
-
-**Pontos de Atenção:**
-
-* Garantir que as avaliações sejam relevantes para a função e aplicadas de forma padronizada.
-* Manter o candidato informado sobre as próximas etapas e prazos estimados.
-* Coletar feedback de todos os envolvidos na avaliação de forma estruturada.
-* Pode haver múltiplas rodadas aqui; esta atividade representa o conjunto delas.
 
 ---
 
@@ -447,5 +407,3 @@ Encaminha para o evento final `Seleção Finalizada - Rejeitado`
 * **ATS:** Confirmação do status final (Rejeitado/Desistiu).
 
 ---
-
-Espero que este detalhamento do processo de **Seleção de Candidato**, seguindo a estrutura anterior e buscando ser genérico, atenda às suas necessidades!
