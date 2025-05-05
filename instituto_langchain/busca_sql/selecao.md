@@ -1,7 +1,8 @@
 # Processo: Seleção de Candidato
 
-> Este processo descreve as etapas genéricas desde o momento em que um candidato pré-selecionado entra na fase de avaliação ativa até a decisão final de contratação ou rejeição. Ele opera individualmente para cada candidato aprovado na triagem.
->Todo o contéudo foi gerado com a ajuda do Gemini, modelo 2.5 Pro(experimental).
+> Este processo descreve as etapas genéricas desde o momento em que um candidato pré-selecionado entra na fase de avaliação ativa até a decisão final de contratação ou rejeição. Ele opera individualmente para cada candidato aprovado na triagem.  
+> >
+>**Todo o contéudo foi gerado com a ajuda do Gemini, modelo 2.5 Pro(experimental).**
 
 ## Atividades
 
@@ -24,10 +25,10 @@ Analista RH
 
 **Roteamento:**
 
-***Aprovação - Entrevista Agendada***
+***Aprovação - Entrevista Agendada***  
 Encaminha para a atividade `Realizar Entrevista Inicial`
 
-***Reprovação - Processo Finalizado***
+***Reprovação - Processo Finalizado***  
 Encaminha para a atividade `Entrevista Inicial Rejeitada`
 
 **Integrações:**
@@ -48,7 +49,7 @@ Encaminha para a atividade `Entrevista Inicial Rejeitada`
 
 **Usuário(s) responsável:**
 
-Recrutador (RH), Entrevistador de RH
+Entrevistador de RH
 
 **Descrição do Procedimento:**
 
@@ -56,15 +57,15 @@ Recrutador (RH), Entrevistador de RH
 * O Entrevistador do RH conduz a entrevista com o candidato (presencial, telefone ou vídeo).
 * O Entrevistador avalia aspectos comportamentais (soft skills), alinhamento cultural, entendimento da vaga, histórico profissional e pretensão salarial.
 * O Entrevistador apresenta a empresa e a vaga ao candidato, esclarece dúvidas.
-* O Entrevistador registra o feedback/parecer sobre o candidato no ATS ou formulário padrão.
+* O Entrevistador registra o feedback/parecer sobre o candidato no formulário.
 * O Entrevistador decide se o candidato avança no processo.
 
 **Roteamento:**
 
-***Aprovar Candidato:***
-Encaminha para a atividade `Agendar Entrevista Técnica`.
+***Aprovar Candidato:***  
+Encaminha para a atividade `Agendar Entrevista e Avaliação Técnica`.
 
-***Reprovar Candidato:***
+***Reprovar Candidato:***  
 Encaminha para a atividade `Rejeitado na Entrevista Inicial`.
 
 **Integrações:**
@@ -74,11 +75,9 @@ Encaminha para a atividade `Rejeitado na Entrevista Inicial`.
 
 **Pontos de Atenção:**
 
-Manter um roteiro de entrevista estruturado para garantir comparabilidade. Focar em perguntas situacionais e comportamentais. Registrar o feedback logo após a entrevista.
+* Manter um roteiro de entrevista estruturado para garantir comparabilidade. Focar em perguntas situacionais e comportamentais. Registrar o feedback logo após a entrevista.
 
-Perfeito! Entendi a sua ideia. Você quer focar esta atividade especificamente no ato de **definir e agendar** as próximas etapas (técnicas/gestor), tratando a confirmação ou impossibilidade de agendamento com o candidato.
-
-Vamos refinar a descrição, mantendo a sua ideia central e a estrutura que estamos usando:
+---
 
 ### Agendar Entrevistas e Avaliações Técnica
 
@@ -97,19 +96,19 @@ Analista RH
 * **Confirmação ou Recusa:**
   * **Se o candidato confirmar** a disponibilidade para as datas/horários propostos:
     * O Analista RH formaliza o agendamento enviando os convites (via ferramenta de agenda) para o candidato e entrevistadores/avaliadores, incluindo links de videoconferência (se aplicável) e qualquer instrução necessária.
-    * O Analista RH atualiza o status do candidato no ATS e registra os detalhes do agendamento no formulário do processo.
+    * O Analista RH atualiza o status do candidato e registra os detalhes do agendamento no formulário do processo.
     * O processo avança para a próxima etapa (`Realizar Entrevista e Avaliação Técnica`).
   * **Se o candidato recusar** as opções, não responder após um número razoável de tentativas (definir política interna, ex: 3 tentativas em 48h), ou desistir do processo:
-    * O Analista RH registra o motivo no ATS/formulário.
-    * O processo é desviado para a notificação de rejeição.
+    * O Analista RH registra o motivo no formulário.
+    * O processo é finalizado.
 
 **Roteamento:**
 
-***Aprovação - Agendamento Confirmado***
-Encaminha para a atividade `Realizar Entrevista e Avaliação Técnica` (ou um estado de "Aguardando Realização da Entrevista/Avaliação" se preferir marcar essa espera no fluxo).
+***Aprovação - Agendamento Confirmado***  
+Encaminha para a atividade `Realizar Entrevista e Avaliação Técnica`.
 
-***Rejeição - Não Agendado / Desistência***
-Encaminha para a atividade `Entrevista Técnica Cancelada` (para formalizar o encerramento da participação do candidato no processo).
+***Rejeição - Não Agendado / Desistência***  
+Encaminha para a atividade `Entrevista e Avalição Técnica Cancelada` (para formalizar o encerramento da participação do candidato no processo).
 
 **Integrações:**
 
@@ -127,6 +126,8 @@ Encaminha para a atividade `Entrevista Técnica Cancelada` (para formalizar o en
 * **Profissionalismo:** Manter uma comunicação ágil e profissional, mesmo em caso de recusa ou desistência do candidato.
 * **Registro:** Assegurar que todos os agendamentos (e tentativas/falhas) sejam devidamente registrados no ATS ou sistema de controle.
 
+---
+
 ### Realizar Entrevistas e Avaliações Técnica
 
 **Usuário(s) responsável:**
@@ -137,7 +138,7 @@ Gestor Solicitante, Avaliadores Técnicos, (Analista RH como suporte/coordenador
 
 * **Ativação:** A tarefa é ativada no sistema para os responsáveis (Gestor, Avaliadores) pouco antes da data/hora agendada para a entrevista/avaliação (Ex: 1-2 dias antes, ou no próprio dia). O sistema pode enviar lembretes.
 * **Condução:** Os entrevistadores/avaliadores designados conduzem as sessões (entrevista técnica, comportamental, apresentação de case, teste prático, etc.) conforme planejado e agendado na etapa anterior.
-* **Registro de Feedback:** **Imediatamente após** cada sessão (ou o mais breve possível), cada entrevistador/avaliador acessa o sistema (ATS ou formulário do workflow) e registra suas percepções de forma estruturada:
+* **Registro de Feedback:** **Imediatamente após** cada sessão (ou o mais breve possível), cada entrevistador/avaliador acessa o sistema (formulário do workflow) e registra suas percepções de forma estruturada:
   * Pontos fortes e fracos observados.
   * Respostas a perguntas chave ou desempenho em tarefas.
   * Avaliação de competências técnicas e/ou comportamentais.
@@ -150,11 +151,11 @@ Gestor Solicitante, Avaliadores Técnicos, (Analista RH como suporte/coordenador
 
 **Roteamento:**
 
-***Aprovação - Recomendado para Contratação***
-Encaminha para a atividade `Proposta de Contratação`.
+***Aprovação - Recomendado para Contratação***  
+Encaminha para a atividade `Proposta e Formalização da Contratação`.
 
-***Rejeição - Não Recomendado***
-* Encaminha para a atividade `Rejeitado na Entrevista e Avaliação Técnica`.
+***Rejeição - Não Recomendado***  
+Encaminha para a atividade `Rejeitado na Entrevista e Avaliação Técnica`.
 
 **Integrações:**
 
@@ -173,48 +174,7 @@ Encaminha para a atividade `Proposta de Contratação`.
 
 ---
 
-### Comunicar Rejeição
-
-**Usuário(s) responsável:** Recrutador (RH), Sistema (para mensagens automáticas)
-
-**Descrição do Procedimento:**
-
-* O Recrutador (ou o sistema) identifica os candidatos que foram reprovados em alguma etapa.
-* O Recrutador define o momento do envio da comunicação (logo após a reprovação ou ao final do processo seletivo).
-* O Recrutador seleciona o modelo de mensagem de feedback (pode ser genérico ou, idealmente, com algum ponto específico, se a política da empresa permitir e o volume não for impeditivo).
-* O Recrutador (ou o sistema) envia a comunicação para o candidato (normalmente por e-mail).
-* O Recrutador atualiza o status final do candidato no ATS.
-
-**Roteamento:**
-
-* Comunicação Enviada:
-  * Finaliza o fluxo para este candidato específico (End Event).
-
-**Regra de Formulário:**
-
-Mensagem de comunicação é obrigatória.
-
-**Integrações:**
-
-* ATS (para obter lista de rejeitados e atualizar status).
-* Sistema de E-mail.
-
-**Casos de Uso fora do Escopo:**
-
-Feedback detalhado por telefone (geralmente para fases mais avançadas).
-
-**Pontos de Atenção:**
-
-Manter um tom respeitoso e profissional. Agradecer a participação do candidato. Garantir que todos os rejeitados recebam comunicação para preservar a imagem empregadora.
-
-
-
-
-
-
----
-
-### (Opcional) Verificar Referências
+### Proposta e Formalização da Contratação
 
 **Usuário(s) responsável:**
 
@@ -222,188 +182,161 @@ Analista RH
 
 **Descrição do Procedimento:**
 
-* Se definido no processo, o Analista RH solicita ao candidato os contatos de referências profissionais.
-* O Analista RH entra em contato com as referências (geralmente ex-gestores ou pares) para coletar feedback sobre o desempenho e comportamento profissional do candidato.
-* O feedback é registrado de forma confidencial.
+O Analista RH gerencia esta atividade atualizando o **status** no formulário do Workflow conforme o progresso:
+
+**Início:**  
+A atividade é iniciada após a decisão final de contratar (`Tomar Decisão Final`).
+
+* **(Status: Em Elaboração)** O Analista RH reúne todas as informações validadas (cargo, salário, benefícios, data de início, etc.) e elabora a minuta da proposta/contrato oficial.
+
+**Aprovações Internas (Se aplicável):**  
+
+* **(Status: Aguardando Aprovações Internas)** Se a política da empresa exigir aprovações (Ex: Gestor da Área, Diretor, Financeiro), o Analista RH submete a minuta para validação através do fluxo apropriado (pode ser um sub-processo ou tarefa paralela). O Workflow aguarda o retorno.
+* *Se Rejeitada Internamente:* O processo pode ser cancelado (Status: `Cancelada - Interna`) ou retornar para ajuste (Status: `Em Elaboração`), dependendo da configuração. Para simplificar, consideraremos que uma rejeição aqui leva ao cancelamento.
+* *Se Aprovada Internamente:* O status avança.
+
+**Envio ao Candidato:**
+
+* **(Status: Aguardando Envio ao Candidato)** Com a proposta pronta e aprovada internamente (ou se não houver aprovação necessária).
+* **(Status: Enviada / Aguardando Resposta Candidato)** O Analista RH envia a proposta formal ao candidato pelo canal definido (Ex: E-mail, Plataforma ATS, Ferramenta de E-signature) e define um prazo para resposta/assinatura. O Workflow aguarda a ação do candidato ou o fim do prazo.
+
+**Resposta do Candidato:**
+
+* *Se o Candidato Rejeitar ou Contrapropor (e não for aceito):* O Analista RH atualiza o status para **(Status: Cancelada - Recusada pelo Candidato)**.
+* *Se o Candidato Não Responder no Prazo:* O Analista RH atualiza o status para **(Status: Cancelada - Sem Retorno)**.
+* *Se o Candidato Aceitar (Verbalmente/Email):* O Analista RH pode atualizar para **(Status: Aceita / Aguardando Assinatura)** e prossegue para a coleta da assinatura formal.
+
+**Assinatura do Contrato:**
+
+* O Analista RH gerencia o processo de assinatura (digital via plataforma ou coleta física).
+* **(Status: Assinada / Em Verificação)** Assim que o documento assinado é recebido (upload no workflow, notificação da plataforma de e-signature), o Analista RH verifica a conformidade e autenticidade da assinatura.
+
+**Conclusão:**
+
+* *Se Assinatura OK:* O Analista RH atualiza o status final para **(Status: Concluída - Assinada)** e aprova a atividade no Workflow.
+* *Se Houver Problema na Assinatura/Verificação:* Pode retornar a um status anterior ou ser cancelado, dependendo do problema.
 
 **Roteamento:**
 
-***Aprovação - Referências OK / Prosseguir***
-Encaminha para a atividade `Tomar Decisão Final (Contratar/Rejeitar)` (ou para a próxima etapa definida, se houver mais alguma antes da decisão).
+***Aprovação - Proposta Assinada e Verificada*** (Disparado quando o Status final é `Concluída - Assinada`)  
+Encaminha para a atividade `Disparar Processo de Admissão`.
 
-***Rejeição - Alerta nas Referências / Rejeitar***
-Encaminha para a atividade `Notificar Candidato Rejeitado` (ou pode voltar para `Tomar Decisão Final` para uma análise mais aprofundada do alerta). *Simplificando, vamos direto para a decisão.*
+***Rejeição - Proposta Não Concretizada*** (Disparado quando o Status final é `Cancelada - Interna`, `Cancelada - Recusada pelo Candidato` ou `Cancelada - Sem Retorno`)  
+Encaminha para a atividade `Proposta Rejeitada`.
 
 **Integrações:**
 
-* **ATS:** Registro do status e resumo da verificação de referências.
+* **ATS (Applicant Tracking System):** Para registrar cada status da proposta, armazenar o documento final e atualizar o status geral do candidato.
+* **Sistema de RH (HRIS):** Consulta de dados para elaboração da proposta; pode receber a informação final para iniciar a pré-admissão.
+* **Plataforma de Assinatura Eletrônica (E-signature):** (Ex: DocuSign, Clicksign, ZapSign) Para envio, acompanhamento e recebimento do documento assinado digitalmente.
+* **Sistema de Workflow:** Fundamental para gerenciar os status, tarefas, prazos e roteamento.
+* **Mecanismo de Aprovação Interna:** (Pode ser dentro do Workflow ou um sistema separado).
 
 **Pontos de Atenção:**
 
-* Realizar a verificação apenas com o consentimento explícito do candidato.
-* Fazer perguntas objetivas e relevantes para a vaga.
-* Respeitar a confidencialidade das informações.
+* **Clareza dos Status:** Garantir que os status no Workflow sejam claros e que o Analista RH os atualize corretamente a cada etapa.
+* **Prazos:** Gerenciar os prazos para aprovações internas, resposta do candidato e assinatura.
+* **Conformidade Legal:** Assegurar que a proposta/contrato esteja em conformidade com a legislação trabalhista e as políticas da empresa.
+* **Comunicação:** Manter o candidato informado sobre o status da proposta, especialmente se houver demoras nas aprovações internas.
+* **Segurança da Informação:** Cuidado ao manusear dados sensíveis do candidato e da empresa durante a elaboração e envio da proposta.
+* **Versionamento:** Controlar as versões do documento caso haja ajustes durante as aprovações ou negociações.
 
 ---
 
-### Tomar Decisão Final (Contratar/Rejeitar)
+### Disparar Processo de Admissão
 
 **Usuário(s) responsável:**
 
-Gestor Solicitante, Analista RH (Decisão Colaborativa)
+Robô (Sistema de Automação/Workflow)
 
 **Descrição do Procedimento:**
 
-* O Gestor Solicitante e o Analista RH revisam todo o histórico do candidato no processo: currículo, resultados das entrevistas, avaliações, (e referências, se aplicável).
-* Comparam o candidato com os requisitos da vaga e, implicitamente, com outros candidatos finalistas (embora este processo seja por candidato, a decisão considera o pool).
-* Tomam a decisão final: fazer uma proposta de contratação ou rejeitar o candidato.
-* A decisão é registrada no sistema.
+* Esta atividade é acionada automaticamente após a conclusão bem-sucedida da atividade `Proposta e Formalização da Contratação` (Status: `Concluída - Assinada`).
+* O Robô coleta os dados essenciais do candidato e da contratação que foram confirmados no processo de Seleção (Ex: ID do Candidato, ID da Vaga, Cargo, Salário Aprovado, Data de Início, Gestor, Centro de Custo, Dados Pessoais básicos coletados).
+* O Robô **inicia uma nova instância** do processo de negócio `Admissão de Colaborador`.
+* O Robô passa os dados coletados como parâmetros iniciais para o novo processo de Admissão.
+* O Robô registra o ID da nova instância do processo de Admissão no processo de Seleção atual para fins de rastreabilidade.
 
 **Roteamento:**
 
-***Aprovação - Fazer Proposta***
-Encaminha para a atividade `Elaborar/Enviar Proposta de Contratação`
-
-***Rejeição - Rejeitar Candidato***
-Encaminha para a atividade `Notificar Candidato Rejeitado`
+***Aprovação - Finalização do Processo***  
+Encaminha a atividade `Seleção Finalizada`.
 
 **Integrações:**
 
-* **ATS:** Registro da decisão final.
+* **Sistema de Workflow:** Fundamental para:
+  * Receber o gatilho da atividade anterior.
+  * Ler os dados necessários do processo de Seleção.
+  * Iniciar a nova instância do processo Admissão de Colaborador.
+  * Passar os dados para o novo processo.
+* **ATS (Applicant Tracking System):** Pode ser consultado para obter dados complementares do candidato, se necessário.
+* **Sistema de RH (HRIS):** Pode ser o sistema onde o processo de Admissão é efetivamente executado, recebendo os dados via integração com o Workflow.
 
 **Pontos de Atenção:**
 
-* Decisão deve ser baseada em critérios objetivos e nos dados coletados durante o processo.
-* Alinhamento claro entre RH e Gestor é crucial.
+* **Mapeamento de Dados:** Garantir que todos os dados necessários para iniciar a Admissão sejam corretamente mapeados e transferidos.
+* **Tratamento de Erros:** Prever o que acontece se o Robô falhar ao tentar iniciar o processo de Admissão (Ex: log de erro, notificação para o RH, tentativa de retentativa).
+* **Rastreabilidade:** Assegurar que seja fácil navegar entre o processo de Seleção finalizado e o processo de Admissão recém-criado.
+* **Timing:** A execução deve ser rápida para não atrasar o início formal da admissão.
 
 ---
 
-### Elaborar/Enviar Proposta de Contratação
+### Atividades de Finalização por Rejeição
+
+**Nomes:** `Entrevista Inicial Cancelada`, `Entrevista e Avalição Técnica Cancelada`, `Proposta Rejeitada`, `Rejeitado na Entrevista Inicial`, `Rejeitado na Entrevista e Avaliação Técnica`.
 
 **Usuário(s) responsável:**
 
-Analista RH
+Robô (Sistema de Automação/Workflow)
 
 **Descrição do Procedimento:**
 
-* O Analista RH formaliza a proposta de contratação, incluindo: cargo, salário, benefícios, data de início, local de trabalho e outras condições relevantes.
-* A proposta pode precisar de aprovações internas adicionais (Ex: Diretor da área, Financeiro), dependendo da política da empresa (este sub-fluxo de aprovação não está detalhado aqui para manter genérico).
-* Após aprovações (se necessárias), o Analista RH envia a proposta formal ao candidato por um canal oficial (Ex: e-mail, plataforma ATS).
+* Estas atividades são eventos finais do processo, acionados quando uma rota de rejeição.
+* O Robô captura um "snapshot" (uma cópia congelada) das informações relevantes do processo no momento da finalização (Ex: dados da vaga, dados do candidato, etapa da rejeição, motivo registrado, feedbacks relevantes se aplicável).
+* **Todos os campos de dados nesta atividade são marcados como somente leitura (bloqueados)**, servindo como um registro histórico final do motivo e do momento da saída do candidato do processo de seleção.
+* O status final do candidato no ATS é confirmado como "Rejeitado" (ou status específico da rejeição).
 
 **Roteamento:**
 
-***Aprovação - Proposta Enviada***
-Encaminha para a atividade `Aguardar Resposta do Candidato`
+Estas são atividades finais, não possuem roteamento de saída para outras atividades dentro deste processo. Elas encerram o fluxo para este candidato.
 
 **Integrações:**
 
-* **ATS:** Registro do envio da proposta e seus detalhes.
-* **Sistema de RH (HRIS):** Pode ser consultado para padronizar dados da proposta.
+* Sistema de Workflow: Responsável por receber o fluxo das etapas anteriores, congelar os dados no formulário final e encerrar a instância do processo.
+* ATS (Applicant Tracking System): Confirmação/atualização final do status do candidato.
 
 **Pontos de Atenção:**
 
-* Garantir que a proposta esteja clara, completa e em conformidade com o que foi discutido e com as políticas da empresa.
-* Definir um prazo para o candidato responder.
+* **Consistência dos Dados:** Garantir que os dados "congelados" reflitam com precisão o estado do processo no momento da rejeição.
+* **Clareza do Motivo:** O motivo da rejeição, registrado na etapa anterior, deve estar claramente visível neste registro final.
+* **Não Edição:** Assegurar que os dados nesta atividade final não possam ser alterados após a conclusão
 
 ---
 
-### Aguardar Resposta do Candidato
+### Seleção Finalizada
 
 **Usuário(s) responsável:**
 
-Sistema/Workflow, Analista RH
+Robô (Sistema de Automação/Workflow)
 
 **Descrição do Procedimento:**
 
-* O sistema aguarda a resposta do candidato dentro do prazo estipulado.
-* O candidato pode:
-    * Aceitar a proposta.
-    * Rejeitar a proposta.
-    * Tentar negociar (neste fluxo genérico, uma negociação pode levar de volta à `Tomar Decisão Final` ou `Elaborar/Enviar Proposta` após discussão interna, ou ser tratada como rejeição se os termos não forem aceitos pela empresa).
-* O Analista RH monitora o status e pode fazer follow-up se necessário.
-* A resposta do candidato é registrada.
+* Esta é a atividade final do processo para os casos de sucesso, acionada após a atividade `Disparar Processo de Admissão` ser concluída com êxito.
+* O Robô captura um "snapshot" das informações finais do processo de seleção (dados da vaga, dados do candidato contratado, ID do processo de Admissão iniciado, principais marcos alcançados).
+* **Todos os campos de dados nesta atividade são marcados como somente leitura (bloqueados)**, servindo como um registro histórico final da conclusão bem-sucedida da seleção.
+* O status final do candidato no ATS é confirmado como "Contratado" ou "Admissão Iniciada".
 
 **Roteamento:**
 
-***Aprovação - Proposta Aceita***
-Encaminha para a atividade `Formalizar Contratação` (Evento Final de Sucesso)
-
-***Rejeição - Proposta Rejeitada***
-Encaminha para a atividade `Notificar Candidato Rejeitado` (Considerando a rejeição da proposta como um tipo de notificação final)
+Esta é uma atividade final, não possui roteamento de saída. Ela encerra o fluxo do processo de Seleção para este candidato.
 
 **Integrações:**
 
-* **ATS:** Atualização do status do candidato (Aceitou Oferta, Recusou Oferta).
+* **Sistema de Workflow:** Responsável por receber o fluxo da atividade Disparar Processo de Admissão, congelar os dados no formulário final e encerrar a instância do processo de Seleção.
+* **ATS (Applicant Tracking System):** Confirmação/atualização final do status do candidato.
 
 **Pontos de Atenção:**
 
-* Estar preparado para responder a dúvidas ou tentativas de negociação do candidato de forma ágil.
-
----
-
-### Notificar Candidato Rejeitado
-
-**Usuário(s) responsável:**
-
-Analista RH, Sistema/Workflow (para mensagens automáticas)
-
-**Descrição do Procedimento:**
-
-* Esta atividade é acionada sempre que um candidato é rejeitado em qualquer etapa anterior (`Entrevista Inicial`, `Avaliações`, `Verificar Referências`, `Decisão Final`) ou quando ele rejeita a proposta (`Aguardar Resposta`).
-* O Analista RH (ou o sistema com um template aprovado) envia uma comunicação formal ao candidato informando sobre a decisão.
-* Idealmente, oferecer um feedback construtivo, mesmo que breve, dependendo da política da empresa e da fase do processo.
-* A comunicação visa manter uma boa imagem empregadora (Employer Branding).
-* O status final do candidato é atualizado no sistema.
-
-**Roteamento:**
-
-***Conclusão - Notificação Enviada***
-Encaminha para o evento final `Seleção Finalizada - Rejeitado`
-
-**Integrações:**
-
-* **ATS:** Registro da comunicação e atualização final do status do candidato.
-* **Ferramenta de E-mail/Comunicação.**
-
-**Pontos de Atenção:**
-
-* Ser respeitoso e profissional na comunicação.
-* Evitar linguagem que possa gerar problemas legais.
-* Manter um registro da comunicação enviada.
-* Dar o retorno o mais rápido possível após a decisão.
-
----
-
-### Formalizar Contratação (Evento Final - Sucesso)
-
-**Tipo:** Evento Final
-
-**Descrição:**
-
-* Acionado quando o candidato aceita a proposta na atividade `Aguardar Resposta do Candidato`.
-* Marca o fim bem-sucedido do processo de *Seleção* para este candidato específico.
-* Atualiza o status final do candidato no ATS/HRIS como "Contratado".
-* **Importante:** Geralmente, esta etapa **aciona o início de um novo processo: "Admissão/Onboarding"**, que cuidará da coleta de documentos, exames admissionais, integração à empresa, etc.
-
-**Integrações:**
-
-* **ATS/HRIS:** Atualização final do status.
-* **Sistema de Workflow:** Pode disparar o processo de Admissão/Onboarding.
-
----
-
-### Seleção Finalizada - Rejeitado (Evento Final - Falha)
-
-**Tipo:** Evento Final
-
-**Descrição:**
-
-* Acionado após a atividade `Notificar Candidato Rejeitado`.
-* Marca o fim do processo de *Seleção* para este candidato, que não foi selecionado ou não aceitou a proposta.
-* Garante que todos os candidatos que participaram do processo tenham um status final registrado.
-
-**Integrações:**
-
-* **ATS:** Confirmação do status final (Rejeitado/Desistiu).
-
----
+* **Link para Admissão:** O ID ou link para o processo de Admissão iniciado deve estar claramente registrado para rastreabilidade.
+* **Consistência dos Dados:** Garantir que os dados finais reflitam a conclusão bem-sucedida.
+* **Não Edição:** Assegurar que os dados não possam ser alterados após a conclusão.
