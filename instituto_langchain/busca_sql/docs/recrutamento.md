@@ -226,8 +226,8 @@ Robô (Sistema de Automação/Workflow)
 * Esta atividade é **acionada automaticamente** quando a atividade `Triagem de Currículos` é concluída com o resultado `Prosseguir para Entrevistas` (ou similar), indicando que há uma lista final de candidatos aprovados na triagem.
 * O Robô recebe a lista de IDs dos candidatos aprovados e o ID da Vaga associada.
 * Para **cada ID de candidato** na lista recebida:
-    * O Robô inicia uma **nova instância** do processo de negócio "Seleção de Candidato".
-    * O Robô passa os dados necessários para a nova instância (Ex: ID Candidato, ID Vaga, possivelmente ID do Recrutador responsável).
+  * O Robô inicia uma **nova instância** do processo de negócio "Seleção de Candidato".
+  * O Robô passa os dados necessários para a nova instância (Ex: ID Candidato, ID Vaga, possivelmente ID do Recrutador responsável).
 * Após iniciar com sucesso todos os processos de seleção individuais, o Robô finaliza esta atividade.
 
 **Roteamento:**
