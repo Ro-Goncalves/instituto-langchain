@@ -13,7 +13,7 @@ GERENCIADOR_LLM = GerenciadorLLM()
 
 @cl.on_chat_start
 async def on_chat_start():
-    await cl.Message(content="Olá, Usuário Lindo, inicie com a pergunta: Do que se trada o processo da Ana Souza?").send()
+    await cl.Message(content="Olá, Usuário Lindo, inicie com a pergunta: Do que se trata o processo da Ana Souza?").send()
     
 @cl.on_message
 async def on_message(message: cl.Message):
