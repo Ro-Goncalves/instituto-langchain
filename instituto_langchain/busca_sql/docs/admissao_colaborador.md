@@ -33,7 +33,7 @@ Analista RH
 **Roteamento:**
 
 ***Aprovação - Documentação Completa e Validada***
-Encaminha para as atividades `Realizar Cadastro no Sistema de TI` E `Realizar Cadastro no ERP e Sistemas Operacionais` (podem ocorrer em paralelo).
+Encaminha para as atividades `Realizar Cadastros nos Sistemas de TI` E `Realizar Cadastro no ERP e Sistemas Operacionais` (podem ocorrer em paralelo).
 
 ***Rejeição - Desistência / Problema Impeditivo***
 Encaminha para a atividade `Admissão Cancelada` (Ex: candidato desiste, reprova no exame admissional, documentação fundamental irregular).
@@ -56,7 +56,7 @@ Encaminha para a atividade `Admissão Cancelada` (Ex: candidato desiste, reprova
 
 ---
 
-### Realizar Cadastro no Sistema de TI
+### Realizar Cadastros nos Sistemas de TI
 
 **Usuário(s) responsável:**
 
@@ -82,10 +82,7 @@ Analista de TI / Suporte de TI
 **Roteamento:**
 
 ***Concluído - Cadastros de TI Realizados***
-Encaminha para a atividade `Verificar Conclusão de Cadastros e Preparar Integração`.
-
-***Falha - Erro no Cadastro TI***
-Retorna a tarefa para o Analista de TI com a descrição do erro para correção, ou notifica o Analista RH para intervenção.
+Encaminha para a atividade `Preparar Integração`.
 
 **Integrações:**
 
@@ -131,10 +128,7 @@ Analista Operacional / Usuário Chave do Departamento (ou Analista RH, dependend
 **Roteamento:**
 
 ***Concluído - Cadastros Operacionais Realizados***
-Encaminha para a atividade `Verificar Conclusão de Cadastros e Preparar Integração`.
-
-***Falha - Erro no Cadastro Operacional***
-Retorna a tarefa para o responsável com a descrição do erro para correção, ou notifica o Analista RH para intervenção.
+Encaminha para a atividade `Preparar Integração`.
 
 **Integrações:**
 
@@ -153,7 +147,7 @@ Retorna a tarefa para o responsável com a descrição do erro para correção, 
 
 ---
 
-### Verificar Conclusão de Cadastros e Preparar Integração
+### Preparar Integração
 
 **Usuário(s) responsável:**
 
@@ -161,7 +155,7 @@ Analista RH
 
 **Descrição do Procedimento:**
 
-* Esta atividade é iniciada quando as atividades `Realizar Cadastro no Sistema de TI` E `Realizar Cadastro no ERP e Sistemas Operacionais` são concluídas. O workflow aguarda a finalização de ambas (junção paralela).
+* Esta atividade é iniciada quando as atividades `Realizar Cadastros nos Sistemas de TI` E `Realizar Cadastro no ERP e Sistemas Operacionais` são concluídas. O workflow aguarda a finalização de ambas (junção paralela).
 * O Analista RH verifica no workflow se todos os cadastros foram efetivados e se há alguma pendência ou observação registrada pelas equipes de TI e Operacional.
 * **(Status: Em Preparação da Integração)**
     * Confirmação da data e horário da sessão de integração/boas-vindas.
@@ -174,7 +168,7 @@ Analista RH
 **Roteamento:**
 
 ***Aprovação - Preparativos Concluídos***
-Encaminha para a atividade `Realizar Integração e Primeiros Passos`.
+Encaminha para a atividade `Realizar Integração`.
 
 ***Reprovação - Pendências nos Cadastros/Preparações***
 Se houver pendências críticas, pode notificar os responsáveis (TI/Operacional) para correção urgente ou, em casos extremos, encaminhar para `Admissão Cancelada` (se a pendência for impeditiva e não solucionável a tempo). Idealmente, volta para a atividade específica que precisa de ajuste. Para simplificar, consideramos aqui que pendências são tratadas antes de aprovar.
@@ -194,11 +188,11 @@ Se houver pendências críticas, pode notificar os responsáveis (TI/Operacional
 
 ---
 
-### Realizar Integração e Primeiros Passos
+### Realizar Integração
 
 **Usuário(s) responsável:**
 
-Analista RH, Gestor Direto
+Analista Treinamento, Gestor Direto
 
 **Descrição do Procedimento:**
 
@@ -220,7 +214,7 @@ Analista RH, Gestor Direto
 **Roteamento:**
 
 ***Aprovação - Integração Inicial Concluída***
-Encaminha para a atividade `Admissão Concluída e Efetivada`.
+Encaminha para a atividade `Admissão Concluída`.
 
 ***Pendência - Problemas na Integração / Acessos***
 Se houver problemas críticos (Ex: acesso principal não funciona, equipamento com defeito), a atividade pode ficar em espera e gerar subtarefas para TI/Suporte/Operacional para resolução urgente. Após solução, o fluxo é retomado.
@@ -241,7 +235,7 @@ Se houver problemas críticos (Ex: acesso principal não funciona, equipamento c
 
 ---
 
-### Admissão Concluída e Efetivada
+### Admissão Concluída
 
 **Usuário(s) responsável:**
 
@@ -249,7 +243,7 @@ Robô (Sistema de Automação/Workflow)
 
 **Descrição do Procedimento:**
 
-* Esta atividade é acionada automaticamente após a conclusão bem-sucedida da atividade `Realizar Integração e Primeiros Passos`.
+* Esta atividade é acionada automaticamente após a conclusão bem-sucedida da atividade `Realizar Integração`.
 * O Robô coleta os dados finais da admissão (Ex: ID do Colaborador no HRIS, confirmação de todos os cadastros, data de início efetiva, registro da integração realizada).
 * O Robô atualiza o status final do colaborador no HRIS para "Ativo" (se não feito na etapa anterior) e no ATS para "Contratado/Admitido".
 * O Robô pode disparar notificações para áreas relevantes (Ex: Folha de Pagamento confirmando a inclusão, Segurança do Trabalho para agendamento de treinamentos obrigatórios, etc.).
