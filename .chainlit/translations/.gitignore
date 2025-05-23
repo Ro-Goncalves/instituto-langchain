@@ -1,0 +1,6 @@
+# Ignorar todos os arquivos na pasta
+*
+
+# Não ignorar o arquivo específico
+!pt-BR.json
+!.gitignore
