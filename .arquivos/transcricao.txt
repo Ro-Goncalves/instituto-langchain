@@ -1,0 +1,1 @@
+Arquivo '.arquivos/transcricao.txt' escrito com sucesso.
